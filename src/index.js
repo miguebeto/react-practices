@@ -1,27 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { useState } from 'react';
 
-const nombres = ['Miguel', 'Angel', 'Blanco', 'Castilla'];
-const Saludar = ({ nombre, idioma }) => {
-  const saludo = idioma === 'es' ? 'Hola' : 'Hello';
+const Button = () => {
+  const [counter, setCounter] = useState(0);
   return (
-    <p>
-      {saludo}, {nombre}
-    </p>
+    <div>
+      <p>Presionado {counter}</p>
+      <button onClick={()=> setCounter(counter + 1)}>Click Me!</button>
+    </div>
   );
 };
 
 const App = () => {
   return (
     <>
-      <div>
-        <Saludar nombre="miguel" idioma="en" />
-      </div>
-      <ul>
-        {nombres.map((nombre, index) => (
-          <li key={index}>{nombre}</li>
-        ))}
-      </ul>
+      <Button />
     </>
   );
 };
