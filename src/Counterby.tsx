@@ -1,22 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 interface Props {
   initialValue?: number;
 }
+interface CounterState {
+  counter: number;
+  clicks: number;
+}
 
-export const Counterby = ({ initialValue = 5 }): Props => {
-  const [counterState, setCounterState] = useState({
+export const Counterby = ({ initialValue = 5 }: Props) => {
+  const [{ counter, clicks }, setCounterState] = useState<CounterState>({
     counter: initialValue,
-    clicks: 0,
+    clicks: 0
   }); //1
-
-  const { counter, clicks } = counterState;
 
   //2
   const incrementar = (numero: number = 1) => {
-    setCounterState((prev) => ({
-      counter: prev.counter + numero,
-      clicks: prev.clicks + 1,
+    setCounterState(({ counter, clicks }) => ({
+      counter: counter + numero,
+      clicks: clicks + 1
     }));
   };
   //3
@@ -41,16 +43,14 @@ export const Counterby = ({ initialValue = 5 }): Props => {
       <button
         className="btn btn-outline-primary"
         onClick={(e) =>
-          setCounterState({ ...counterState, clicks: clicks + 1 })
+          setCounterState({ counter: counter, clicks: clicks + 1 })
         }
       >
         Click
       </button>
       <button
         className="btn btn-outline-danger"
-        onClick={() =>
-          setCounterState({ ...counterState, counter: 0, clicks: 0 })
-        }
+        onClick={() => setCounterState({ counter: 0, clicks: 0 })}
       >
         Reset
       </button>

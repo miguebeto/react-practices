@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 interface Props {
   initialValue?: number;
 }
 
-export const Counter = ({ initialValue = 5 }): Props => {
+export const Counter = ({ initialValue = 5 }: Props) => {
   const [counterState, setCounterState] = useState({
     counter: initialValue,
-    clicks: 0,
+    clicks: 0
   }); //1
 
   //2
@@ -15,7 +15,7 @@ export const Counter = ({ initialValue = 5 }): Props => {
     setCounterState({
       ...counterState,
       counter: counterState.counter + numero,
-      clicks: counterState.clicks + 1,
+      clicks: counterState.clicks + 1
     });
   };
   //3
