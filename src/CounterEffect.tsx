@@ -23,13 +23,16 @@ export const CounterEffect = () => {
     //   .then(() => {
     //     gsap.to(counterRef.current, { y: 0, duration: 1, ease: "bounce.out" });
     //   });
+    //4
+    const timeLine = gsap.timeline();
+
+    timeLine.to(counterRef.current, {
+      y: -10,
+      duration: 0.5,
+      ease: "ease.out"
+    });
+    timeLine.to(counterRef.current, { y: 0, duration: 1, ease: "bounce.out" });
   }, [counter]);
-
-  //4
-  const timeLine = gsap.timeline();
-
-  timeLine.to(counterRef.current, { y: -10, duration: 0.5, ease: "ease.out" });
-  timeLine.to(counterRef.current, { y: 0, duration: 1, ease: "bounce.out" });
 
   //5
   const handleClick = () => {
