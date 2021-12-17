@@ -3,26 +3,29 @@ import React, { useState } from "react";
 interface Props {
   initialValue?: number;
 }
+interface CounterState {
+  counter: number;
+  clicks: number;
+}
 
-export const Counter = ({ initialValue = 5 }: Props) => {
-  const [counterState, setCounterState] = useState({
+export const Counterby = ({ initialValue = 5 }: Props) => {
+  const [{ counter, clicks }, setCounterState] = useState<CounterState>({
     counter: initialValue,
     clicks: 0
   }); //1
 
   //2
   const incrementar = (numero: number = 1) => {
-    setCounterState({
-      ...counterState,
-      counter: counterState.counter + numero,
-      clicks: counterState.clicks + 1
-    });
+    setCounterState(({ counter, clicks }) => ({
+      counter: counter + numero,
+      clicks: clicks + 1
+    }));
   };
   //3
   return (
     <div className="counter">
-      <h3>Counter: {JSON.stringify(counterState.counter)}</h3>
-      <h3>Click: {JSON.stringify(counterState.clicks)}</h3>
+      <h3>Counterby: {JSON.stringify(counter)}</h3>
+      <h3>Click: {JSON.stringify(clicks)}</h3>
       <span>valor: </span>
       <br />
       <button
@@ -40,16 +43,14 @@ export const Counter = ({ initialValue = 5 }: Props) => {
       <button
         className="btn btn-outline-primary"
         onClick={(e) =>
-          setCounterState({ ...counterState, clicks: counterState.clicks + 1 })
+          setCounterState({ counter: counter, clicks: clicks + 1 })
         }
       >
         Click
       </button>
       <button
         className="btn btn-outline-danger"
-        onClick={() =>
-          setCounterState({ ...counterState, counter: 0, clicks: 0 })
-        }
+        onClick={() => setCounterState({ counter: 0, clicks: 0 })}
       >
         Reset
       </button>
