@@ -1,55 +1,84 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import "bootstrap/dist/css/bootstrap.css";
+import React, { useReducer, useState } from "react";
 
-import { Counter } from "./Counter";
-import { Counterby } from "./Counterby";
-import { CounterEffect } from "./CounterEffect";
-import { CounterHooks } from "./CounterHooks";
-import { CounterReducerComponent } from "./CounterReducer";
-import { Usuario } from "./Usuario";
-import { TimerPadre } from "./TimerPadre";
-import { ContadorRed } from "./ContadorRed";
-import { Formulario } from "./Formulario";
-import { Formulario2 } from "./Formulario2";
-
-import "./style.css";
-
-function App() {
-  return (
-    <>
-      <h1>React + TypeScript</h1>
-      <hr />
-      <Counter initialValue={15} />
-      <br />
-      <Counterby initialValue={5} />
-      <br />
-      <CounterEffect />
-      <hr />
-      <CounterEffect />
-      <hr />
-      <CounterHooks />
-      <hr />
-      <br />
-      <CounterReducerComponent />
-      <hr />
-      <br />
-      <Usuario />
-      <h2>useEffect - useRef</h2>
-      <hr />
-      <TimerPadre />
-      <br />
-      <h2>useReducer:</h2>
-      <hr />
-      <ContadorRed />
-      <br />
-      <h2>customHooks:</h2>
-      <hr />
-      <Formulario />
-      <br />
-      <Formulario2 />
-    </>
-  );
+//1
+interface CounterState {
+  counter: number;
+  prev: number;
+  changes: number;
 }
 
-ReactDOM.render(<App />, document.getElementById("root"));
+//2
+const initialStage: CounterState = {
+  counter: 10,
+  prev: 15,
+  changes: 20
+};
+
+//3
+type CounterAction =
+  | { type: "increseBy"; payload: { value: number } }
+  | { type: "reset" };
+
+//4
+const counterReducer = (
+  state: CounterState,
+  action: CounterAction
+): CounterState => {
+  const { counter, changes } = state;
+  switch (action.type) {
+    case "reset":
+      return {
+        counter: 0,
+        prev: 0,
+        changes: 0
+      };
+    case "increseBy":
+      return {
+        ...state,
+        changes: changes + 1,
+        prev: counter,
+        counter: counter + action.payload.value
+      };
+
+    default:
+      return state;
+  }
+};
+
+export const CounterReducerComponent = ({ initialValue = 5 }: CounterState) => {
+  //3
+  const [counterState, dispatch] = useReducer(counterReducer, initialStage);
+  //4
+  const handleReset = () => {
+    dispatch({
+      type: "reset"
+    });
+  };
+
+  const increseBy = (value: number) => {
+    dispatch({
+      type: "increseBy",
+      payload: { value }
+    });
+  };
+
+  //5
+  return (
+    <div className="counter">
+      <h1>CounterReducer:</h1>
+      <pre> {JSON.stringify(counterState)}</pre>
+      <button className="btn btn-outline-primary" onClick={() => increseBy(1)}>
+        +1
+      </button>
+      <button className="btn btn-outline-primary" onClick={() => increseBy(5)}>
+        +5
+      </button>
+      <button className="btn btn-outline-primary" onClick={() => increseBy(10)}>
+        +10
+      </button>
+      <button className="btn btn-outline-primary" onClick={handleReset}>
+        Reset
+      </button>
+    </div>
+  );
+};
