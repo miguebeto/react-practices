@@ -1,10 +1,10 @@
 import { CounterState } from "./interfaces";
-import { CounterAction } from "./action";
+import { Actions } from "./action";
 
 //4
 export const counterReducer = (
   state: CounterState,
-  action: CounterAction
+  action: Actions
 ): CounterState => {
   const { counter, changes } = state;
   switch (action.type) {
