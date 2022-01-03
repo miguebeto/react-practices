@@ -1,0 +1,22 @@
+{
+  "compilerOption": {
+    "target": "es5", // version de ecmaScript a utilizar
+    "module": "commonjs", //manejador de modulos para las importaciones y exportaciones
+    "removeComment": true, //para remover los comentarios en el codigo.
+    "outDir": "./dist", //lugar donde queremos que el compilador guarde en formato js.
+    "noImplicitAny": true, //Para typescript no agrege any a las variablkes de manera implícita
+    "sourceMap": false, //Para que no dé la linea específica de d los errores.
+    "watch": true, //Para que el compiladro quede en espera o sujeto a los cambios que vayamos realizando.
+    "rootDir": src, //Para indicar donde estan los archivos de typeScript
+    "experimentalDecoration": true //Para indicarle que vamos hacer uso de los decoradores.
+  },
+  "files": [
+    "demo.ts" //Agregamos los archivos que se van a compilar a javascript
+  ],
+  "includes": [
+    "src/**/*" //Para incluir todos los archivos y carpetas contenidos en la carpeta src
+  ],
+  "exclude": [
+    "node_modules" //Ignoramos las carpetas que no queremos compilar.
+  ]
+}
